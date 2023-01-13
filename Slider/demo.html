@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<!---:: Animation Coding ::-->
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Awesome Slider Animation Swiper JS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.2.4/swiper-bundle.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,500;1,600&display=swap');
+
+        @font-face {
+            font-family: Vermin Vibes;
+            src: url(VerminVibes.ttf);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Vermin Vibes;
+            user-select: none;
+        }
+
+        body {
+            background: linear-gradient(#212730, #111214);
+            background-attachment: fixed;
+        }
+
+        .header,
+        .footer {
+            position: relative;
+            /* filter: drop-shadow(2px 4px 6px rgb(255, 255, 255)); */
+        }
+
+        .header_bg {
+            width: 100%;
+            height: 100vh;
+            background: url(dddd.svg);
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            clip-path: circle(180vh at 50% -115vh);
+            position: absolute;
+            background-attachment: fixed;
+            top: -100px;
+            background-position: center;
+        }
+
+        .footer_bg {
+            width: 100%;
+            height: 100vh;
+            background: url(footer.svg);
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            top: -50rem;
+            opacity: 0.1;
+            background-position: center;
+        }
+
+
+
+        .swiper-slide:not(.swiper-slide-active) .info_content {
+            opacity: none;
+            visibility: hidden;
+        }
+
+        .content_titles {
+            margin: 100px 0;
+            position: relative;
+        }
+
+        .content_titles h2 {
+            font-size: 90px;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 7px;
+            text-align: center;
+            text-shadow: -1px -1px 20px rgba(255, 255, 255, 0.271);
+
+        }
+
+        .content_titles h2 span {
+
+            background: -webkit-linear-gradient(45deg, #4048ff, #ff06cb, #ff5c28);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: none !important;
+        }
+
+        .slide-container {
+            max-width: 1800px;
+            width: 100%;
+            padding: 40px 0;
+        }
+
+        .slide-content {
+            margin: 0 40px;
+            padding: 40px 0px;
+            overflow: hidden;
+            border-radius: 5px;
+            -webkit-box-reflect: below -195px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(70%, #00000000), to(rgb(250 250 250 / 40%)));
+
+        }
+
+        .swiper-slide {
+            border-radius: 12px;
+            width: 300px;
+            height: 480px;
+            margin: 0 !important;
+
+        }
+
+        .card img {
+            width: 100%;
+            height: 100%;
+            border-radius: 12px;
+            object-fit: cover;
+            position: relative;
+            z-index: 2;
+
+        }
+
+        .card .shadow {
+            position: absolute;
+            width: 103%;
+            height: 103%;
+            overflow: hidden;
+            display: flex;
+            left: 50%;
+            transform: translate(-50%, 0);
+            bottom: 0;
+            z-index: -2;
+            border-radius: 20px;
+            filter: blur(20px);
+            opacity: 0.4;
+            top: 0;
+        }
+
+        .info_content {
+            position: absolute;
+            bottom: 10px;
+            z-index: 2;
+            color: #fffffff2;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-radius: 12px;
+            margin: 0px 12px;
+            padding: 16px;
+            left: 0;
+            right: 0;
+            background: rgba(12, 12, 12, 0.37);
+            box-shadow: 0 8px 32px 0 rgb(31 38 135 / 37%);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 10px;
+            font-family: 'Nunito', sans-serif;
+
+
+        }
+
+        .info_content .info-sub h3 {
+            font-size: 15px;
+            color: rgb(181, 181, 181);
+            font-family: 'Nunito', sans-serif;
+
+        }
+
+        .info_content .info-sub h1 {
+            font-size: 20px;
+            font-weight: 600;
+            color: rgb(250, 250, 250);
+            font-family: 'Nunito', sans-serif;
+        }
+
+        .info_content .info-sub h1 span {
+            font-size: 20px;
+            font-weight: 600;
+            color: #ffea2a;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        .info_content h2 {
+            color: #1eff5c;
+            font-size: 20px;
+            transition: all 0.3s ease;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        .info_content h2 i {
+            margin-left: 2px;
+            font-size: 18px;
+        }
+
+        .info_content:hover>h2 {
+            text-shadow: 0px 0px 20px #1eff5c;
+        }
+
+        @media screen and (max-width: 768px) {
+            .slide-content {
+                margin: 0 10px;
+            }
+
+        }
+
+        @media screen and (max-width: 600px) {
+            .content_titles h2 {
+                font-size: 40px;
+            }
+
+            .info_content .info-sub h3 {
+                font-size: 14px;
+            }
+
+            .info_content .info-sub h1 {
+                font-size: 18px;
+            }
+
+            .info_content h2 {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <section>
+        <div class="header">
+            <div class="header_bg">
+            </div>
+        </div>
+        <div class="content_titles">
+            <h2>
+                unique collection
+            </h2>
+            <h2>
+                of <span> nft arts</span>
+            </h2>
+        </div>
+
+        <div class="slide-container swiper">
+            <div class="slide-content">
+                <div class="card-wrapper swiper-wrapper">
+
+                    <div class="card swiper-slide">
+                        <img src="01.jpg" alt="">
+                        <img src="01.jpg" alt="" class="shadow">
+                        <div class="info_content">
+                            <div class="info-sub">
+                                <h3>Feature Bid</h3>
+                                <h1>2.17 <span>ETH</span></h1>
+                            </div>
+                            <h2>More <i class="fa-solid fa-caret-right"></i></h2>
+                        </div>
+                    </div>
+                    <div class="card swiper-slide">
+                        <img src="02.jpg" alt="">
+                        <img src="02.jpg" alt="" class="shadow">
+                        <div class="info_content">
+                            <div class="info-sub">
+                                <h3>Feature Bid</h3>
+                                <h1>3.01 <span>ETH</span></h1>
+                            </div>
+                            <h2>More <i class="fa-solid fa-caret-right"></i></h2>
+                        </div>
+                    </div>
+                    <div class="card swiper-slide">
+                        <img src="03.jpg" alt="">
+                        <img src="03.jpg" alt="" class="shadow">
+                        <div class="info_content">
+                            <div class="info-sub">
+                                <h3>Feature Bid</h3>
+                                <h1>1.61 <span>ETH</span></h1>
+                            </div>
+                            <h2>More <i class="fa-solid fa-caret-right"></i></h2>
+                        </div>
+                    </div>
+                    <div class="card swiper-slide">
+                        <img src="04.jpg" alt="">
+                        <img src="04.jpg" alt="" class="shadow">
+                        <div class="info_content">
+                            <div class="info-sub">
+                                <h3>Feature Bid</h3>
+                                <h1>4.50 <span>ETH</span></h1>
+                            </div>
+                            <h2>More <i class="fa-solid fa-caret-right"></i></h2>
+                        </div>
+                    </div>
+                    <div class="card swiper-slide">
+                        <img src="05.jpg" alt="">
+                        <img src="05.jpg" alt="" class="shadow">
+                        <div class="info_content">
+                            <div class="info-sub">
+                                <h3>Feature Bid</h3>
+                                <h1>2.96 <span>ETH</span></h1>
+                            </div>
+                            <h2>More <i class="fa-solid fa-caret-right"></i></h2>
+                        </div>
+                    </div>
+                    <div class="card swiper-slide">
+                        <img src="06.jpg" alt="">
+                        <img src="06.jpg" alt="" class="shadow">
+                        <div class="info_content">
+                            <div class="info-sub">
+                                <h3>Feature Bid</h3>
+                                <h1>2.27 <span>ETH</span></h1>
+                            </div>
+                            <h2>More <i class="fa-solid fa-caret-right"></i></h2>
+                        </div>
+                    </div>
+                    <div class="card swiper-slide">
+                        <img src="07.jpg" alt="">
+                        <img src="07.jpg" alt="" class="shadow">
+                        <div class="info_content">
+                            <div class="info-sub">
+                                <h3>Feature Bid</h3>
+                                <h1>7.63 <span>ETH</span></h1>
+                            </div>
+                            <h2>More <i class="fa-solid fa-caret-right"></i></h2>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="footer_bg"></div>
+        </div>
+    </section>
+
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.2.4/swiper-bundle.min.js"></script>
+
+    <script>
+        var swiper = new Swiper(".slide-content", {
+            slidesPerView: 3.35,
+            spaceBetween: 0,
+            effect: "coverflow",
+            grabCursor: true,
+            centeredSlides: true,
+            loop: true,
+            centerSlide: 'true',
+            fade: 'true',
+            autoplay: {
+                delay: 1200,
+                disableOnInteraction: false,
+            },
+            coverflowEffect: {
+                rotate: 10,
+                stretch: -0.1,
+                depth: 100,
+                modifier: 2.8,
+                slideShadows: false,
+            },
+
+            breakpoints: {
+                280: {
+                    slidesPerView: 1.2,
+                    coverflowEffect:
+                    {
+                        stretch: -10,
+                    }
+
+
+                },
+                340: {
+                    slidesPerView: 1.3,
+                    coverflowEffect:
+                    {
+                        stretch: -0.2,
+                    }
+
+
+                },
+
+
+                450: {
+                    slidesPerView: 2.45,
+                    coverflowEffect:
+                    {
+                        stretch: -1,
+                    }
+
+
+                },
+                640: {
+                    slidesPerView: 2.5,
+                    coverflowEffect:
+                    {
+                        stretch: -3,
+                    }
+                },
+                768: {
+                    slidesPerView: 3.3,
+                    coverflowEffect:
+                    {
+                        stretch: -0.4,
+                    }
+                },
+                1024: {
+                    slidesPerView: 3.35,
+                    coverflowEffect:
+                    {
+                        stretch: -0.1,
+                    }
+
+                },
+                1400: {
+                    slidesPerView: 4,
+                    coverflowEffect:
+                    {
+                        stretch: -0.4,
+                    }
+
+                },
+                1600: {
+                    slidesPerView: 4,
+                    coverflowEffect:
+                    {
+                        stretch: -0.4,
+                    }
+
+                },
+
+
+            }
+
+
+
+        });
+    </script>
+
+</body>
+
+</html>
